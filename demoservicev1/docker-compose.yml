@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  docker-mysql:
+    image: mariadb:10.1.14
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_DATABASE=docker-mysql
+    command: mysqld --lower_case_table_names=1
+    ports:
+      - "3306:3306"
