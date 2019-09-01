@@ -26,6 +26,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.0'
 }
 
+test {
+    useJUnitPlatform()
+}
+
+
 jacoco {
     toolVersion = "0.8.2"
 }
