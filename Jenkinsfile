@@ -13,7 +13,7 @@ pipeline {
       steps {
         sh '''
             cd ./web
-            ./gradlew clean build -x npmSetup -x npmInstall -x :npm_build
+            ./gradlew clean build
         '''
       }
     }
