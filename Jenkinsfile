@@ -9,14 +9,6 @@ pipeline {
             '''
           }
         }
-    stage ('Install dependencies') {
-      steps {
-            sh "apk add nodejs"
-            sh "echo $PATH"
-            sh "npm install"
-        }
-    }
-
     stage('build web') {
       steps {
         sh '''
