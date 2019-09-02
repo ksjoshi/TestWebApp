@@ -9,11 +9,7 @@ pipeline {
             '''
           }
         }
-    post {
-            always {
-                junit 'build/reports/**/*.xml'
-            }
-        }
+
     stage('build web') {
       steps {
         sh '''
@@ -22,10 +18,11 @@ pipeline {
         '''
       }
     }
-    post {
-            always {
-                junit 'build/reports/**/*.xml'
-            }
-        }
+
   }
+  post {
+          always {
+              junit 'build/reports/**/*.xml'
+          }
+      }
 }
