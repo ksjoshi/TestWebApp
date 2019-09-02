@@ -20,9 +20,4 @@ pipeline {
     }
 
   }
-  post {
-          always {
-              junit '**/build/reports/tests/**/index.html'
-          }
-      }
-}
+ }
