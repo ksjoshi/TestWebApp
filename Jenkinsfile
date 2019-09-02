@@ -22,7 +22,7 @@ pipeline {
   }
   post {
           always {
-              junit '**/build/reports/**/index.html'
+              junit '**/build/reports/tests/**/index.html'
           }
       }
 }
