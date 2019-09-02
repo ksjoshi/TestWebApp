@@ -20,10 +20,4 @@ pipeline {
     }
 
   }
-  post {
-          always {
-              junit './web/build/reports/**/*.xml'
-              junit './demoservicev1/build/reports/**/*.xml'
-          }
-      }
 }
