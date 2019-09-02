@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''
             cd ./web
-            ./gradlew clean build --info
+            ./gradlew clean build --debug
         '''
       }
     }
