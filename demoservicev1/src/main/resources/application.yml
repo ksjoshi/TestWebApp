@@ -13,3 +13,10 @@ spring:
     hikari:
       connection-timeout: 6000
       maximum-pool-size: 5
+  cloud:
+    stream:
+      bindings:
+        req-received:
+          destination: queue.log.messages
+        req-sent:
+          destination: queue.messages
