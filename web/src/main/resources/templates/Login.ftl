@@ -5,9 +5,7 @@
 </head>
 <body>
     <div id="container">
-        <div id="header-container">
-            <@header />
-        </div>
+        <@header />
         <div>
             <div id="login-main-data">
                 <form action="/submit" method="post" class="col-small">
@@ -22,9 +20,10 @@
                 </div>
                 <input type="submit" name="submit" id="submit">
                 </form>
+                <a id="register-label" href="/register" name="register">Not Registered ? Sign Up Here</a>
             </div>
         </div>
     </div>
     <script src="http://localhost:9090/main.js"></script>
 </body>
-</html
+</html>
