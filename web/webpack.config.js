@@ -2,7 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './src/main/resources/static/js/LoginPage.js',
+    entry:{
+        main : './src/main/resources/static/js/LoginPage.js',
+        registration: './src/main/resources/static/js/RegistrationPage.js'
+    },
+
     plugins: [
         new webpack.ProvidePlugin({
             $: 'jquery',
@@ -10,7 +14,6 @@ module.exports = {
         })
     ],
     output: {
-        filename: 'main.js',
         path: path.resolve(__dirname, './src/main/resources/static/dist')
     },
     mode: 'development',

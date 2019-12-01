@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,12 +37,12 @@ class RegisterControllerTest {
     @Test
     void shouldRegisterProvidedUser() throws Exception {
         RegisterUser input = getResgisterUserInput();
-        when(webProcessBO.registerUser(input)).thenReturn(1);
+        when(webProcessBO.registerUser(any())).thenReturn(1);
         this.mockMvc.perform(post("/register")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Success"));
+                .andExpect(content().string(containsString("successful")));
 
     }
 
@@ -63,7 +64,7 @@ class RegisterControllerTest {
         when(webProcessBO.registerUser(input)).thenReturn(1);
         String actual = registerController.registerUser(input);
         verify(webProcessBO).registerUser(eq(input));
-        assertThat(actual).isEqualTo("Success");
+        assertThat(actual).isEqualTo("Registration/Success");
     }
 
     @Test
@@ -72,7 +73,7 @@ class RegisterControllerTest {
         when(webProcessBO.registerUser(input)).thenReturn(0);
         String actual = registerController.registerUser(input);
         verify(webProcessBO).registerUser(eq(input));
-        assertThat(actual).isEqualTo("Fail");
+        assertThat(actual).isEqualTo("Registration/Fail");
     }
 
     @Test

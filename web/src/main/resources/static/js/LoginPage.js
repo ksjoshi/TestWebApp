@@ -1,4 +1,4 @@
-import FormValidator from "./validateForm";
+import LoginFormValidator from "./ValidateLoginForm";
 
-FormValidator.init();
+LoginFormValidator.init();
 

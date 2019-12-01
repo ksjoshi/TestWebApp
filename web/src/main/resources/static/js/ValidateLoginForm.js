@@ -1,4 +1,4 @@
-const FormValidator = {
+const LoginFormValidator = {
     login: $('#login'),
     pwd: $('#password'),
     submit: $('#submit'),
@@ -22,13 +22,13 @@ function defaultView(field) {
 }
 
 function validate(event) {
-    if (!FormValidator.login.val()) {
+    if (!LoginFormValidator.login.val()) {
         event.preventDefault();
-        FormValidator.login.css('border-color','red');
+        LoginFormValidator.login.css('border-color','red');
     }
-    if (!FormValidator.pwd.val()) {
+    if (!LoginFormValidator.pwd.val()) {
         event.preventDefault();
-        FormValidator.pwd.css('border-color' ,'red');
+        LoginFormValidator.pwd.css('border-color' ,'red');
     }
 }
-export default FormValidator;
+export default LoginFormValidator;

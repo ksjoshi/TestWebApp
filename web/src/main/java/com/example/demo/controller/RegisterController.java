@@ -5,9 +5,8 @@ import com.example.demo.VO.RegisterUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -20,16 +19,15 @@ public class RegisterController {
         this.webProcessBO = webProcessBO;
     }
 
-    @PostMapping("/register")
-    @ResponseBody
-    public String registerUser(@RequestBody RegisterUser registerUser) {
+    @PostMapping(value = "/register")
+    public String registerUser(@ModelAttribute("registerUser") RegisterUser registerUser) {
         Integer userRegistered = webProcessBO.registerUser(registerUser);
-        return (userRegistered != 0)? "Success" : "Fail";
+        return (userRegistered != 0)? "Registration/Success" : "Registration/Fail";
     }
 
     @GetMapping("/register")
     public ModelAndView register() {
-        return new ModelAndView("Register");
+        return new ModelAndView("Registration/Register");
     }
 
 }
