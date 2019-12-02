@@ -54,6 +54,17 @@ class LoginVerificationControllerTest {
     }
 
     @Test
+    void shouldReturnFalseVerificationResultWhenAnExceptionOccurs() throws Exception {
+        when(databaseRepository.getUserInfo("dummy")).thenThrow(new RuntimeException("Exception for test."));
+        mockMvc.perform(post("/verify")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(validRequest))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"));
+    }
+
+    @Test
     void shouldReturnFalseIfCredentialsAreEmpty() throws Exception {
         mockMvc.perform(post("/verify")
                 .accept(MediaType.APPLICATION_JSON)
