@@ -2,7 +2,7 @@
 <#include "../macros/formInput.ftl">
 <html>
 <head>
-    <link rel="stylesheet" href="myWeb.css" />
+    <link rel="stylesheet" href="../../static/css/myWeb.css" />
     <title>Register</title>
 </head>
 <body>

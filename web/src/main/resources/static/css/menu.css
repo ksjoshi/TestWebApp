@@ -1,0 +1,20 @@
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline-block;
+}
+
+li a {
+    padding: 1rem;
+}
+
+#menu-container {
+    display: flex;
+    flex-direction: row;
+    height: 5%;
+    background-color: antiquewhite;
+    justify-content: space-between;
+    align-items: flex-end;
+}
