@@ -2,6 +2,7 @@ x=$(git diff --name-only origin/master master)
 echo "Git Diff Changes are"
 echo $x
 
+git pull -r
 if [[ $x = *web* ]]; then
 	cd web
 	echo " Current Directory is :" 
@@ -9,7 +10,7 @@ if [[ $x = *web* ]]; then
 	./gradlew clean build
 	cd ..
 fi
-if [[ $x = *web* ]]; then
+if [[ $x = *demoservicev1* ]]; then
 	cd demoservicev1
 	echo " Current Directory is :"
 	./gradlew clean build
