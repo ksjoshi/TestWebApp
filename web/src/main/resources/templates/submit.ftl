@@ -1,6 +1,6 @@
 <html>
 <head>
- <link rel="stylesheet" href="myWeb.css" />
+ <link rel="stylesheet" href="../static/css/myWeb.css" />
 </head>
 <body>
 <div id="main">
@@ -8,4 +8,4 @@
   <br><a href="http://localhost:8082/login">Back to Login</a>
 </div>
 </body>
-</html
+</html>
