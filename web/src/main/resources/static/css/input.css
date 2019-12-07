@@ -1,0 +1,10 @@
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 3px;
+}
+
+.input-row label {
+    padding-right: 0.5rem;
+}

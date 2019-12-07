@@ -14,19 +14,11 @@ const RegistrationFormValidator = {
 };
 function validate(event) {
 
-    let input = [
-        RegistrationFormValidator.userName,
-        RegistrationFormValidator.firstName,
-        RegistrationFormValidator.lastName,
-        RegistrationFormValidator.password
-    ];
-
     if(!(RegistrationFormValidator.userName.val()
         || RegistrationFormValidator.firstName.val()
         || RegistrationFormValidator.lastName.val()
         || RegistrationFormValidator.password.val()
     )) {
-        alert(RegistrationFormValidator.userName.val());
         event.preventDefault();
         $('#error-container').show();
     }
