@@ -32,6 +32,13 @@ cd demoservicev1
 ./gradlew clean build
 ```
 
+# Configure Git Hooks #
+You can configure `pre-push` git hook by running following command
+Goto root folder `TestWebApp` and execute `install.sh`
+```shell script
+./install.sh
+```
+
 # How to test #
 Start following application in order to test - 
 * DemoApplication (which is `web1)
