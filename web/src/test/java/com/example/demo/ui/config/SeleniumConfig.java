@@ -15,6 +15,7 @@ public class SeleniumConfig {
 
     @BeforeEach
     public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         driver = new ChromeDriver(options);
