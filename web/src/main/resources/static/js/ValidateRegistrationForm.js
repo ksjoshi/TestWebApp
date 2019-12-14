@@ -6,15 +6,16 @@ const RegistrationFormValidator = {
     hint: $('#hint'),
     submit: $('#submit'),
 
-    initialize(){
-        this.submit.on('click',() => {
+    initialize() {
+        this.submit.on('click', () => {
             validate(event);
         });
     }
 };
+
 function validate(event) {
 
-    if(!(RegistrationFormValidator.userName.val()
+    if (!(RegistrationFormValidator.userName.val()
         || RegistrationFormValidator.firstName.val()
         || RegistrationFormValidator.lastName.val()
         || RegistrationFormValidator.password.val()

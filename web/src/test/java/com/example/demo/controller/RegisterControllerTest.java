@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.BO.WebProcessBO;
-import com.example.demo.VO.RegisterUser;
+import com.example.demo.bo.WebProcessBO;
+import com.example.demo.vo.RegisterUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,70 +23,70 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 class RegisterControllerTest {
 
-    @MockBean
-    WebProcessBO webProcessBO;
+  @MockBean
+  WebProcessBO webProcessBO;
 
-    @Autowired
-    MockMvc mockMvc;
+  @Autowired
+  MockMvc mockMvc;
 
-    @Autowired
-    RegisterController registerController;
+  @Autowired
+  RegisterController registerController;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    void shouldRegisterProvidedUser() throws Exception {
-        RegisterUser input = getResgisterUserInput();
-        when(webProcessBO.registerUser(any())).thenReturn(1);
-        this.mockMvc.perform(post("/register")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(input)))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("successful")));
+  @Test
+  void shouldRegisterProvidedUser() throws Exception {
+    RegisterUser input = getResgisterUserInput();
+    when(webProcessBO.registerUser(any())).thenReturn(1);
+    this.mockMvc.perform(post("/register")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(input)))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("successful")));
 
-    }
+  }
 
-    @Test
-    void shouldNotRegisterProvidedUserIfThereIsError() throws Exception {
-        RegisterUser input = getResgisterUserInput();
-        when(webProcessBO.registerUser(input)).thenReturn(0);
-        this.mockMvc.perform(post("/register")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(input)))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Fail"));
+  @Test
+  void shouldNotRegisterProvidedUserIfThereIsError() throws Exception {
+    RegisterUser input = getResgisterUserInput();
+    when(webProcessBO.registerUser(input)).thenReturn(0);
+    this.mockMvc.perform(post("/register")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(input)))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Fail"));
 
-    }
+  }
 
-    @Test
-    void shouldCallRegisterWithProvidedUserInformationAndReturnSuccess() {
-        RegisterUser input = getResgisterUserInput();
-        when(webProcessBO.registerUser(input)).thenReturn(1);
-        String actual = registerController.registerUser(input);
-        verify(webProcessBO).registerUser(eq(input));
-        assertThat(actual).isEqualTo("Registration/Success");
-    }
+  @Test
+  void shouldCallRegisterWithProvidedUserInformationAndReturnSuccess() {
+    RegisterUser input = getResgisterUserInput();
+    when(webProcessBO.registerUser(input)).thenReturn(1);
+    String actual = registerController.registerUser(input);
+    verify(webProcessBO).registerUser(eq(input));
+    assertThat(actual).isEqualTo("Registration/Success");
+  }
 
-    @Test
-    void shouldCallRegisterWithProvidedUserInformationAndReturnFail() {
-        RegisterUser input = getResgisterUserInput();
-        when(webProcessBO.registerUser(input)).thenReturn(0);
-        String actual = registerController.registerUser(input);
-        verify(webProcessBO).registerUser(eq(input));
-        assertThat(actual).isEqualTo("Registration/Fail");
-    }
+  @Test
+  void shouldCallRegisterWithProvidedUserInformationAndReturnFail() {
+    RegisterUser input = getResgisterUserInput();
+    when(webProcessBO.registerUser(input)).thenReturn(0);
+    String actual = registerController.registerUser(input);
+    verify(webProcessBO).registerUser(eq(input));
+    assertThat(actual).isEqualTo("Registration/Fail");
+  }
 
-    @Test
-    void shouldReturnRegisterModelAnView() throws Exception {
-        mockMvc.perform(get("/register"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Register")));
-    }
+  @Test
+  void shouldReturnRegisterModelAnView() throws Exception {
+    mockMvc.perform(get("/register"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Register")));
+  }
 
-    RegisterUser getResgisterUserInput() {
-        return new RegisterUser(
-                "uName","fName", "lName","pwd", "hint"
-        );
-    }
+  RegisterUser getResgisterUserInput() {
+    return new RegisterUser(
+            "uName", "fName", "lName", "pwd", "hint"
+    );
+  }
 
 }

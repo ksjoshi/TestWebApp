@@ -1,7 +1,7 @@
 <#include "./macros/header.ftl">
 <html>
 <head>
-    <link rel="stylesheet" href="../static/css/myWeb.css" />
+    <link rel="stylesheet" href="../static/css/myWeb.css"/>
 </head>
 <body>
 <div id="container">

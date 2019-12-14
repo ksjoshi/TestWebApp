@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.BO.WebProcessBO;
-import com.example.demo.VO.LoginVO;
+import com.example.demo.bo.WebProcessBO;
+import com.example.demo.vo.LoginVO;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,61 +20,61 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 public class LoginControllerTest {
-    @MockBean
-    WebProcessBO webProcessBO;
+  @MockBean
+  WebProcessBO webProcessBO;
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    public void shouldGetOKStatusonGETcall() throws Exception {
-        this.mockMvc.perform(get("/login"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(containsString("Login")));
-    }
+  @Test
+  public void shouldGetOkStatusonGetcall() throws Exception {
+    this.mockMvc.perform(get("/login"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().string(containsString("Login")));
+  }
 
-    @Test
-    public void shouldAcceptTheFormAndReturnNextController() throws Exception {
-        LoginVO loginVO = new LoginVO();
-        loginVO.setLogin("dummy");
-        loginVO.setPassword("dummy");
-        when(webProcessBO.process(ArgumentMatchers.any())).thenReturn(true);
+  @Test
+  public void shouldAcceptTheFormAndReturnNextController() throws Exception {
+    LoginVO loginVO = new LoginVO();
+    loginVO.setLogin("dummy");
+    loginVO.setPassword("dummy");
+    when(webProcessBO.process(ArgumentMatchers.any())).thenReturn(true);
 
-        this.mockMvc.perform(post("/submit").contentType(APPLICATION_FORM_URLENCODED)
-                .param("login", "dummy")
-                .param("password","dummy"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(containsString("Welcome")));
-    }
+    this.mockMvc.perform(post("/submit").contentType(APPLICATION_FORM_URLENCODED)
+            .param("login", "dummy")
+            .param("password", "dummy"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().string(containsString("Welcome")));
+  }
 
-    @Test
-    public void shouldAcceptTheFormAndReturnLoginView() throws Exception {
-        LoginVO loginVO = new LoginVO();
-        loginVO.setLogin("dummy");
-        loginVO.setPassword("dummy");
-        when(webProcessBO.process(loginVO)).thenReturn(false);
+  @Test
+  public void shouldAcceptTheFormAndReturnLoginView() throws Exception {
+    LoginVO loginVO = new LoginVO();
+    loginVO.setLogin("dummy");
+    loginVO.setPassword("dummy");
+    when(webProcessBO.process(loginVO)).thenReturn(false);
 
-        this.mockMvc.perform(post("/submit").contentType(APPLICATION_FORM_URLENCODED)
-                .param("login", "dummy")
-                .param("password","dummy"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(containsString("Login")));
-    }
+    this.mockMvc.perform(post("/submit").contentType(APPLICATION_FORM_URLENCODED)
+            .param("login", "dummy")
+            .param("password", "dummy"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().string(containsString("Login")));
+  }
 
-    @Test
-    public void shouldReturnStteingViewWhenClickedOnSettingLink() throws Exception {
-        mockMvc.perform(get("/setting"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("setting"));
-    }
+  @Test
+  public void shouldReturnStteingViewWhenClickedOnSettingLink() throws Exception {
+    mockMvc.perform(get("/setting"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("setting"));
+  }
 
-    @Test
-    public void shouldLogouttheUserAndLoginViewShouldBeReturned() throws Exception {
+  @Test
+  public void shouldLogouttheUserAndLoginViewShouldBeReturned() throws Exception {
 
-        mockMvc.perform(get("/logout"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/login"));
-    }
+    mockMvc.perform(get("/logout"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/login"));
+  }
 
 
 }

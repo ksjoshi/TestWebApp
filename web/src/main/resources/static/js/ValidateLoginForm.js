@@ -4,7 +4,7 @@ const LoginFormValidator = {
     submit: $('#submit'),
 
     init() {
-        this.submit.on('click',()=>{
+        this.submit.on('click', () => {
             validate(event);
         });
 
@@ -24,11 +24,12 @@ function defaultView(field) {
 function validate(event) {
     if (!LoginFormValidator.login.val()) {
         event.preventDefault();
-        LoginFormValidator.login.css('border-color','red');
+        LoginFormValidator.login.css('border-color', 'red');
     }
     if (!LoginFormValidator.pwd.val()) {
         event.preventDefault();
-        LoginFormValidator.pwd.css('border-color' ,'red');
+        LoginFormValidator.pwd.css('border-color', 'red');
     }
 }
+
 export default LoginFormValidator;

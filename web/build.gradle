@@ -1,4 +1,4 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent 
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 buildscript {
     ext {
@@ -67,7 +67,7 @@ tasks.withType(Test) {
         events TestLogEvent.FAILED,
                 TestLogEvent.PASSED,
                 TestLogEvent.SKIPPED
-                
+
 
         afterSuite { desc, result ->
             if (!desc.parent) { // will match the outermost suite

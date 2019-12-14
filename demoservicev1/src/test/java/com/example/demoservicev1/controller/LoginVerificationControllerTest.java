@@ -1,8 +1,7 @@
 package com.example.demoservicev1.controller;
 
-
-import com.example.demoservicev1.Repository.DatabaseRepository;
 import com.example.demoservicev1.model.UserInfo;
+import com.example.demoservicev1.repository.DatabaseRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,68 +17,67 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 class LoginVerificationControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+  // private DatabaseRepository databaseRepository = mock(DatabaseRepository.class);
+  private final String validRequest = "{\"login\":\"dummy\",\"password\":\"dummy\"}";
+  private final String invalidRequest = "{\"login\":\"dummy\",\"password\":\"false dummy\"}";
+  @Autowired
+  MockMvc mockMvc;
+  @MockBean
+  DatabaseRepository databaseRepository;
+  private String invalidEmptyRequest = "{\"login\":\"\",\"password\":\"\"}";
 
-    @MockBean
-    DatabaseRepository databaseRepository;
+  @Test
+  void shouldReturnTrueVerificationResult() throws Exception {
+    UserInfo userInfo = new UserInfo(1, "dummy", "fName", "lName", "dummy", "hint");
+    when(databaseRepository.getUserInfo("dummy")).thenReturn(userInfo);
+    mockMvc.perform(post("/verify")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(validRequest))
+            .andExpect(status().isOk())
+            .andExpect(content().string("true"));
+  }
 
-   // private DatabaseRepository databaseRepository = mock(DatabaseRepository.class);
-    private final String validRequest = "{\"login\":\"dummy\",\"password\":\"dummy\"}";
-    private final String invalidRequest = "{\"login\":\"dummy\",\"password\":\"false dummy\"}";
-    private String invalidEmptyRequest = "{\"login\":\"\",\"password\":\"\"}";
+  @Test
+  void shouldReturnFalseVerificationResult() throws Exception {
+    UserInfo userInfo = new UserInfo(1, "dummy", "fName", "lName", "pwd", "hint");
+    when(databaseRepository.getUserInfo("dummy")).thenReturn(userInfo);
+    mockMvc.perform(post("/verify")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(invalidRequest))
+            .andExpect(status().isOk())
+            .andExpect(content().string("false"));
+  }
 
-    @Test
-    void shouldReturnTrueVerificationResult() throws Exception {
-        UserInfo userInfo = new UserInfo(1,"dummy","fName","lName","dummy","hint");
-        when(databaseRepository.getUserInfo("dummy")).thenReturn(userInfo);
-        mockMvc.perform(post("/verify")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(validRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("true"));
-    }
+  @Test
+  void shouldReturnFalseVerificationResultWhenAnExceptionOccurs() throws Exception {
+    when(databaseRepository.getUserInfo("dummy"))
+            .thenThrow(new RuntimeException("Exception for test."));
+    mockMvc.perform(post("/verify")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(validRequest))
+            .andExpect(status().isOk())
+            .andExpect(content().string("false"));
+  }
 
-    @Test
-    void shouldReturnFalseVerificationResult() throws Exception {
-        UserInfo userInfo = new UserInfo(1,"dummy","fName","lName","pwd","hint");
-        when(databaseRepository.getUserInfo("dummy")).thenReturn(userInfo);
-        mockMvc.perform(post("/verify")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(invalidRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
-    }
+  @Test
+  void shouldReturnFalseIfCredentialsAreEmpty() throws Exception {
+    mockMvc.perform(post("/verify")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(invalidEmptyRequest))
+            .andExpect(status().isOk())
+            .andExpect(content().string("false"));
 
-    @Test
-    void shouldReturnFalseVerificationResultWhenAnExceptionOccurs() throws Exception {
-        when(databaseRepository.getUserInfo("dummy")).thenThrow(new RuntimeException("Exception for test."));
-        mockMvc.perform(post("/verify")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(validRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
-    }
-
-    @Test
-    void shouldReturnFalseIfCredentialsAreEmpty() throws Exception {
-        mockMvc.perform(post("/verify")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(invalidEmptyRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
-
-        invalidEmptyRequest = "{\"login\":\"login\",\"password\":\"\"}";
-        mockMvc.perform(post("/verify")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(invalidEmptyRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
-    }
+    invalidEmptyRequest = "{\"login\":\"login\",\"password\":\"\"}";
+    mockMvc.perform(post("/verify")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(invalidEmptyRequest))
+            .andExpect(status().isOk())
+            .andExpect(content().string("false"));
+  }
 
 }

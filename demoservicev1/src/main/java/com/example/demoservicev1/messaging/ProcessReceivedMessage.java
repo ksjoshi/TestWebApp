@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProcessReceivedMessage {
 
-    @StreamListener(value = ReceivedBinding.INPUT)
-    @SendTo(value = ReceivedBinding.OUTPUT)
-    public String processReceivedMessage(String msg) {
-       log.info("Received msg is {}", msg);
+  @StreamListener(value = ReceivedBinding.INPUT)
+  @SendTo(value = ReceivedBinding.OUTPUT)
+  public String processReceivedMessage(String msg) {
+    log.info("Received msg is {}", msg);
 
-        return msg;
-    }
+    return msg;
+  }
 
-    @StreamListener(value = SentBinding.INPUT)
-    public void processSentMessage(String msg) {
-        log.info("Received msg is {}", msg);
-    }
+  @StreamListener(value = SentBinding.INPUT)
+  public void processSentMessage(String msg) {
+    log.info("Received msg is {}", msg);
+  }
 
-    @StreamListener(value = SentBinding.INPUT)
-    public void processSentMessageListener(String msg) {
-        log.info("Received msg on second listener is {}", msg);
-    }
+  @StreamListener(value = SentBinding.INPUT)
+  public void processSentMessageListener(String msg) {
+    log.info("Received msg on second listener is {}", msg);
+  }
 }

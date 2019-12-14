@@ -13,20 +13,20 @@ public class SeleniumConfig {
 
     protected static WebDriver driver;
 
-    @BeforeEach
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
-        driver = new ChromeDriver(options);
-    }
+  @BeforeEach
+  public void setUp() {
+    System.setProperty("webdriver.chrome.driver", "chromedriver");
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("headless");
+    driver = new ChromeDriver(options);
+  }
 
-    protected WebElement getElementById(String id) {
-        return driver.findElement(By.id(id));
-    }
+  protected WebElement getElementById(String id) {
+    return driver.findElement(By.id(id));
+  }
 
-    protected WebElement getElementByClass(String cssClass) {
-        return driver.findElement(By.className(cssClass));
-    }
+  protected WebElement getElementByClass(String cssClass) {
+    return driver.findElement(By.className(cssClass));
+  }
 
 }

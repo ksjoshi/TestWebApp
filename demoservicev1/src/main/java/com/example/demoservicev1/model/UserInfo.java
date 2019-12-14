@@ -8,10 +8,10 @@ import lombok.Getter;
 @Data
 @AllArgsConstructor
 public class UserInfo {
-    Integer id;
-    String username;
-    String first_name;
-    String last_name;
-    String pwd;
-    String hint;
+  Integer id;
+  String username;
+  String first_name;
+  String last_name;
+  String pwd;
+  String hint;
 }

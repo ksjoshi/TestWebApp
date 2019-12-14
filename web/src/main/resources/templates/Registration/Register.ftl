@@ -2,7 +2,7 @@
 <#include "../macros/formInput.ftl">
 <html>
 <head>
-    <link rel="stylesheet" href="../css/myWeb.css" />
+    <link rel="stylesheet" href="../css/myWeb.css"/>
     <title>Register</title>
 </head>
 <body>
@@ -28,14 +28,14 @@
                 placeholder="Optional"
                 />
                 <div class="submit">
-                    <input type="submit" id="submit" name="submit" value="Submit" />
+                    <input type="submit" id="submit" name="submit" value="Submit"/>
                 </div>
             </form>
         </div>
         <div id="footer"></div>
     </div>
     <script src="http://localhost:9090/registration.js"></script>
-    <div id="right-container" />
+    <div id="right-container"/>
 </div>
 </body>
 </html>

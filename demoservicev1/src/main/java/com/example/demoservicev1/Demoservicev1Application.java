@@ -9,8 +9,8 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 @EnableBinding({Received.class})
 public class Demoservicev1Application {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Demoservicev1Application.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Demoservicev1Application.class, args);
+  }
 
 }
