@@ -15,7 +15,7 @@ import java.net.URL;
 @SpringBootTest
 public class SeleniumConfig {
 
-    protected static WebDriver driver;
+  protected static WebDriver driver;
 
   @BeforeEach
   public void setUp() {
@@ -26,7 +26,7 @@ public class SeleniumConfig {
     ChromeDriverService.Builder bldr = (new ChromeDriverService.Builder())
             .usingDriverExecutable(file)
             .usingAnyFreePort();
-     driver = new ChromeDriver(bldr.build(), options);
+    driver = new ChromeDriver(bldr.build(), options);
   }
 
   protected WebElement getElementById(String id) {

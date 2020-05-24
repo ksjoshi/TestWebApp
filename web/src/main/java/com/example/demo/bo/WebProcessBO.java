@@ -1,5 +1,6 @@
 package com.example.demo.bo;
 
+import com.example.demo.VO.TestObject;
 import com.example.demo.vo.LoginVO;
 import com.example.demo.vo.RegisterUser;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,12 @@ public class WebProcessBO {
     HttpEntity<RegisterUser> httpEntity = new HttpEntity<>(registerUser);
     ResponseEntity<Integer> result = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Integer.class);
     return result != null ? result.getBody() : 0;
+  }
+
+  public TestObject t() {
+    String url = "http://127.0.0.1:8083/test";
+    ResponseEntity<TestObject> result = restTemplate.exchange(url, HttpMethod.GET, null, TestObject.class);
+    return result.getBody();
   }
 
 

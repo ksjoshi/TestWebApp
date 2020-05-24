@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.VO.TestObject;
 import com.example.demo.bo.WebProcessBO;
 import com.example.demo.vo.LoginVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -30,6 +32,12 @@ public class LoginController {
       return new ModelAndView("submit");
     }
     return new ModelAndView("Login").addObject("error", "Invalid Credentials");
+  }
+
+  @GetMapping("/t")
+  @ResponseBody
+  public TestObject t() {
+    return webProcessBO.t();
   }
 
   @GetMapping("/setting")

@@ -1,12 +1,14 @@
 package com.example.demoservicev1.controller;
 
 import com.example.demoservicev1.model.Login;
+import com.example.demoservicev1.model.TestObject;
 import com.example.demoservicev1.model.UserInfo;
 import com.example.demoservicev1.repository.DatabaseRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 @RestController
 @Slf4j
@@ -30,6 +32,22 @@ public class LoginVerificationController {
       log.error("Caught exception while verifying the data.", e);
       return false;
     }
+  }
 
+  @GetMapping("/test")
+  public TestObject test() throws IOException {
+    TestObject t = TestObject.builder()
+            .currentDate(LocalDate.now())
+            .field1("field1")
+            .build();
+    return t;
+  }
+
+  //Added only for testing cloud contract
+  @GetMapping(value = "/validate/prime-number")
+  public String test(@RequestParam String number) throws IOException {
+    if(Integer.parseInt(number) %2 == 0 )
+      return "Even";
+    return "Odd";
   }
 }

@@ -1,20 +1,28 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-
+import org.springframework.cloud.contract.verifier.config.TestFramework
 
 buildscript {
     ext {
-        springCloudDependenciesVersion = 'Greenwich.RELEASE'
+        springCloudVersion = 'Greenwich.RELEASE'
+        springCloudDependenciesVersion = '2.1.3.RELEASE'
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springCloudVersion}"
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${springCloudDependenciesVersion}"
     }
 }
 
 plugins {
     id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'java'
+
 }
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'spring-cloud-contract'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -27,7 +35,8 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudDependenciesVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudDependenciesVersion}"
     }
 }
 
@@ -38,10 +47,19 @@ dependencies {
     implementation 'com.zaxxer:HikariCP'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    compileOnly 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.0'
     compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    compileOnly 'org.projectlombok:lombok'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.junit.jupiter:junit-jupiter:5.4.0'
+    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+    testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock'
+    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+    testCompile 'org.springframework.cloud:spring-cloud-stream-test-support'
+}
+
+contracts {
+    packageWithBaseClasses = 'com.example.demoservicev1.contracts'
+    testFramework = TestFramework.JUNIT5
 }
 
 test {
@@ -68,7 +86,7 @@ tasks.withType(Test) {
 }
 
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.5"
 }
 jacocoTestReport {
     reports {
