@@ -23,8 +23,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: kedar2386@gmail.com
-    password: Pulsar$180
+    username: 
+    password: 
     properties:
       mail:
         smtp:
